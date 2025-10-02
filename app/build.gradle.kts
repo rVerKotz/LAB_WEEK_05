@@ -38,6 +38,9 @@ android {
 dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.scalars)
+    implementation(libs.converter.moshi)
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
