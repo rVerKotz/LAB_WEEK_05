@@ -3,6 +3,7 @@ package com.example.lab_week_05
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.lab_week_05.api.CatApiService
@@ -33,6 +34,10 @@ class MainActivity : AppCompatActivity() {
         findViewById(R.id.cat_image)
     }
 
+    private val catBreedView: TextView by lazy {
+        findViewById(R.id.cat_breed)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -55,9 +60,15 @@ class MainActivity : AppCompatActivity() {
                     val images = response.body()
                     if (!images.isNullOrEmpty()) {
                         val firstImage = images[0]
+
+                        // tampilkan gambar
                         Glide.with(this@MainActivity)
                             .load(firstImage.url)
                             .into(catImageView)
+
+                        // tampilkan breed name, atau Unknown kalau tidak ada
+                        val breedName = firstImage.breeds?.firstOrNull()?.name ?: "Unknown"
+                        catBreedView.text = "Cat Breed: $breedName"
                     }
                 } else {
                     Log.e(
