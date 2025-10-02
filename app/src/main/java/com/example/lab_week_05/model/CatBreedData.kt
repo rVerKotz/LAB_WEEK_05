@@ -7,5 +7,5 @@ data class CatBreedData(
     val url: String,
     val width: Int,
     val height: Int,
-    @Json(name = "breeds") val breeds: List<Any>?
+    @Json(name = "breeds") val breeds: List<BreedData>?
 )

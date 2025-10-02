@@ -2,8 +2,9 @@ package com.example.lab_week_05
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.lab_week_05.api.CatApiService
 import com.example.lab_week_05.model.CatBreedData
 import com.squareup.moshi.Moshi
@@ -28,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         retrofit.create(CatApiService::class.java)
     }
 
-    private val apiResponseView: TextView by lazy {
-        findViewById(R.id.api_response)
+    private val catImageView: ImageView by lazy {
+        findViewById(R.id.cat_image)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +55,9 @@ class MainActivity : AppCompatActivity() {
                     val images = response.body()
                     if (!images.isNullOrEmpty()) {
                         val firstImage = images[0]
-                        apiResponseView.text = firstImage.url
+                        Glide.with(this@MainActivity)
+                            .load(firstImage.url)
+                            .into(catImageView)
                     }
                 } else {
                     Log.e(
